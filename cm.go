@@ -86,3 +86,17 @@ func (b *BigIP) UploadSoftwareImage(f *os.File) (*Upload, error) {
 	}
 	return b.Upload(f, info.Size(), uriCm, uriAutodeploy, uriSoftwareImageUploads, info.Name())
 }
+
+// GetActiveDevice returns a current active device.
+func (b *BigIP) GetActiveDevice() (*Device, error) {
+	devices, err := b.Devices()
+	if err != nil {
+		return nil, err
+	}
+	for _, d := range devices.Devices {
+		if d.FailoverState == "active" {
+			return &d, nil
+		}
+	}
+	return nil, errors.New("could not find any active device")
+}
