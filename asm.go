@@ -57,8 +57,8 @@ type ApplyPolicy struct {
 	} `json:"policyReference"`
 }
 
-// TaskApplyPolicy Post a task to manually apply a policy that protects a website
-func (b *BigIP) TaskApplyPolicy(policyHash string) error {
+// ApplyPolicy Post a task to manually apply a policy that protects a website
+func (b *BigIP) ApplyPolicy(policyHash string) error {
 	var apply ApplyPolicy
 	apply.PolicyReference.Link = "https://localhost/mgmt/tm/asm/policies/" + policyHash
 	return b.post(&apply, uriAsm, uriTasks, uriApplyPolicy)
