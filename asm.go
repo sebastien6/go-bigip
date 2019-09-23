@@ -117,5 +117,5 @@ func (b *BigIP) CreateWhitelistIP(policyHash string, wlip *WhitelistIP) error {
 		return err
 	}
 
-	return b.TaskApplyPolicy(policyHash)
+	return b.ApplyPolicy(policyHash)
 }
