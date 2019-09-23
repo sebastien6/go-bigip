@@ -51,7 +51,7 @@ func HashIP(ipaddress, ipmask string) (hash string) {
 }
 
 // ApplyPolicy request content
-type ApplyPolicy struct {
+type ApplyPolicyLink struct {
 	PolicyReference struct {
 		Link string `json:"link"`
 	} `json:"policyReference"`
@@ -59,7 +59,7 @@ type ApplyPolicy struct {
 
 // ApplyPolicy Post a task to manually apply a policy that protects a website
 func (b *BigIP) ApplyPolicy(policyHash string) error {
-	var apply ApplyPolicy
+	var apply ApplyPolicyLink
 	apply.PolicyReference.Link = "https://localhost/mgmt/tm/asm/policies/" + policyHash
 	return b.post(&apply, uriAsm, uriTasks, uriApplyPolicy)
 }
