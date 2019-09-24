@@ -119,3 +119,15 @@ func (b *BigIP) CreateWhitelistIP(policyHash string, wlip *WhitelistIP) error {
 
 	return b.ApplyPolicy(policyHash)
 }
+
+// CreateWhitelistIP update an existing Whitelist-Ip associated to an ASM policy
+func (b *BigIP) UpdateWhitelistIP(policyHash string, wlip *WhitelistIP) error {
+	uriWhitelistIPHash := HashIP(wlip.IPAddress, wlip.IPMask)
+	err := b.post(wlip, uriAsm, uriPolicies, policyHash, uriWhitelistIP, uriWhitelistIPHash)
+	if err != nil {
+		return err
+	}
+
+	return b.ApplyPolicy(policyHash)
+}
+
